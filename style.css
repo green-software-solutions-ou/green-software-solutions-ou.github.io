@@ -1,0 +1,32 @@
+html, body{
+    height: 100%;
+    background: rgb(255,255,240);
+    background: linear-gradient(0deg, rgb(211 208 119) 0%, rgb(188 250 255) 100%);
+}
+
+#content{
+    height: 100%;
+    width: 100%;
+    
+}
+
+#content td{
+    vertical-align: middle;
+    text-align: center;
+}
+
+#logo{
+    width: 384px;
+    height: 384px;
+    background-image: url('./logo/GSS.svg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin: 0 auto;
+    margin-bottom: 42px;
+    margin-top: 32px;
+}
+
+#mG61Hd > div.RH5hzf.RLS9Fe > div.xpWfed{
+    display: none;
+}

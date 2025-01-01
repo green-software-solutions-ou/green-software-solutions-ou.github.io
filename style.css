@@ -1,15 +1,14 @@
 html {
-    background: linear-gradient(0deg, rgb(19 67 24) 0%, rgb(169 210 107) 59%, rgb(251 255 254) 100%);
+    background:  linear-gradient(0deg, rgb(21 48 63) 0%, rgb(127 197 128) 59%, rgb(242 255 196) 100%)
 }
 
 html,
-body
-#content {
+body #content {
     min-height: 100vh;
     /* height: 100vh; */
 }
 
-#content{
+#content {
     width: 100%;
 }
 
@@ -20,18 +19,41 @@ body
 }
 
 #logo {
+    max-width: 100%;
     width: 192px;
     height: 192px;
+    margin: 0 auto;
+    margin-bottom: 42px;
+    margin-top: 28px;
+    position: relative;
+    z-index: 2;
+}
+
+#logo-bg {
+    height: 100%;
+    width: 100%;
     background-image: url('./logo/GSS.svg');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: contain;
-    margin: 0 auto;
-    margin-bottom: 42px;
-    margin-top: 28px;
 }
 
-#form-wrap{
+#logo .gradient {
+    content: " ";
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    margin-left: -300px;
+    margin-top: -300px;
+    height: 600px;
+    width: 600px;
+    background: rgb(255, 255, 255);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.85) 0%, rgba(246, 246, 246, 0) 60%);
+    z-index: -1;
+}
+
+#form-wrap {
+    z-index: 3;
     display: inline-block;
     position: relative;
     padding-top: 24px;
@@ -39,12 +61,25 @@ body
     background: #fafafa;
     background: linear-gradient(0deg, rgb(246 246 246) 0%, rgb(249 254 250) 100%);
     border-radius: 11px;
-    box-shadow: 0px 20px 30px 0px rgba(0,0,0,0.24);
+    box-shadow: 0px 20px 30px 0px rgba(0, 0, 0, 0.24);
 }
 
-#form-wrap #form{
-    
-    
+@keyframes fadeInOut {
+
+    0%,
+    100% {
+        opacity: 0.75;
+    }
+
+    50% {
+        opacity: 0.9;
+    }
+}
+
+#logo .gradient {
+    animation: fadeInOut 2s infinite;
+    /* 8 seconds per cycle, repeats infinitely */
+    transition: opacity 2s ease-in-out;
 }
 
 

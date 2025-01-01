@@ -1,5 +1,6 @@
 html {
-    background:  linear-gradient(0deg, rgb(21 48 63) 0%, rgb(127 197 128) 59%, rgb(242 255 196) 100%)
+    background:  linear-gradient(0deg, rgb(21 48 63) 0%, rgb(127 197 128) 59%, rgb(242 255 196) 100%);
+    font-family: Arial;
 }
 
 html,
@@ -83,6 +84,13 @@ body #content {
     animation: fadeInOut 2s infinite;
     /* 8 seconds per cycle, repeats infinitely */
     transition: opacity 2s ease-in-out;
+}
+
+#footer{
+    color: rgba(255,255,255,.3);
+    
+    padding: 20px;
+    padding-top: 42px;
 }
 
 

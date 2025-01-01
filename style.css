@@ -10,11 +10,14 @@ body #content {
 
 #content {
     width: 100%;
+    overflow: hidden;
 }
 
 #content td {
     vertical-align: middle;
     text-align: center;
+    padding: 20px;
+    padding-top: 0px;
     padding-bottom: 88px;
 }
 
@@ -84,8 +87,8 @@ body #content {
 
 
 
-@media only screen and (max-width: 719px) {
-    #form {
+@media only screen and (max-width: 749px) {
+    #form-wrap, #form {
         width: 100% !important;
     }
 }

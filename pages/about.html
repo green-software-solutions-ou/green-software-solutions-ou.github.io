@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="../page-styles.css">
+<link rel="stylesheet" href="../pages/about.css">
+
+<div class="page-content">
+	<div class="wrap">
+		<h1 class="page-title">About Green Software Solutions</h1>
+		
+		<h2 class="section-title">Our Mission</h2>
+		<p class="body-text">
+			Green Software Solutions OÜ is committed to developing <strong>sustainable</strong> and 
+			<strong>environmentally friendly</strong> software solutions. Our approach combines innovative 
+			technology with eco-conscious practices, ensuring that our digital products have 
+			minimal environmental impact.
+		</p>
+		
+		<h2 class="section-title">Our Focus</h2>
+		<p class="body-text">
+			Founded in Estonia, we focus on creating efficient, optimized software that reduces 
+			carbon footprint and energy consumption while maintaining high performance and user experience.
+		</p>
+		
+		<blockquote class="quote">
+			"We believe that great software should not only serve its purpose but also respect our planet."
+		</blockquote>
+		
+		<h2 class="section-title">Our Team</h2>
+		<p class="body-text">
+			Our team consists of experienced developers, designers, and sustainability experts 
+			who are passionate about making a positive impact on the world through technology.
+		</p>
+		
+		<h3 class="subsection-title">Contact Us</h3>
+		<p class="body-text">
+			Interested in sustainable software solutions? Visit our <a href="#inquiries" class="page-link">inquiries</a> page to get in touch.
+		</p>
+	</div>
+</div>
+
+<script>
+	// Page-specific JavaScript can go here
+	console.log('About page loaded')
+	
+	// Add event listener to the inquiries link
+	document.querySelector('a[href="#inquiries"]').addEventListener('click', function(e) {
+		e.preventDefault()
+		if (window.loadPage) {
+			window.loadPage('inquiries')
+		}
+	})
+</script> 

@@ -1,0 +1,66 @@
+<link rel="stylesheet" href="../page-styles.css">
+<link rel="stylesheet" href="../pages/free-software.css">
+
+<div class="page-content">
+	<div class="wrap">
+		<h1 class="page-title">Free Software Projects</h1>
+		
+		<p class="body-text">
+			At Green Software Solutions, we believe in the power of open-source and free software to drive 
+			innovation and sustainability. Here are some of our free software projects that contribute 
+			to more environmentally friendly computing:
+		</p>
+		
+		<div class="projects-section">
+			<article class="project">
+				<h2 class="section-title">GreenMetrics</h2>
+				<p class="body-text">
+					An open-source tool for measuring and optimizing the energy consumption of software applications. 
+					GreenMetrics provides developers with insights into their code's environmental impact and 
+					offers suggestions for more efficient alternatives.
+				</p>
+			</article>
+			
+			<article class="project">
+				<h2 class="section-title">EcoCache</h2>
+				<p class="body-text">
+					A resource-efficient caching library designed to minimize memory usage and processing power 
+					while maintaining high performance. EcoCache intelligently manages data storage to reduce the 
+					environmental footprint of applications.
+				</p>
+			</article>
+			
+			<article class="project">
+				<h2 class="section-title">SustainableCI</h2>
+				<p class="body-text">
+					A set of CI/CD tools and practices that optimize build processes to consume less energy. 
+					SustainableCI reduces the carbon footprint of development pipelines without sacrificing 
+					quality or speed.
+				</p>
+			</article>
+		</div>
+		
+		<footer class="section-footer">
+			<p class="body-text">
+				All our free software projects are available on GitHub under open-source licenses. We welcome 
+				contributions from the community to help make software development more sustainable.
+			</p>
+			<p class="cta-text">
+				<a href="#inquiries" class="page-link">Get in touch</a> to learn more about our projects or how to contribute.
+			</p>
+		</footer>
+	</div>
+</div>
+
+<script>
+	// Page-specific JavaScript can go here
+	console.log('Free Software page loaded')
+	
+	// Add event listener to the inquiries link
+	document.querySelector('a[href="#inquiries"]').addEventListener('click', function(e) {
+		e.preventDefault()
+		if (window.loadPage) {
+			window.loadPage('inquiries')
+		}
+	})
+</script> 

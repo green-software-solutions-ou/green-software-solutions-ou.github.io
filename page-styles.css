@@ -1,0 +1,70 @@
+/* Common page content styles */
+.wrap {
+    text-align: left;
+    padding: 2rem;
+}
+
+/* Typography */
+.page-title {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(127, 197, 128, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    margin: 1.5rem 0 0.8rem 0;
+}
+
+.subsection-title {
+    font-size: 1.3rem;
+    margin: 1.2rem 0 0.7rem 0;
+}
+
+.body-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.2rem;
+}
+
+.cta-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 1.5rem 0;
+}
+
+/* Quote styling */
+.quote {
+    border-left: 4px solid rgba(127, 197, 128, 0.7);
+    padding-left: 1rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+}
+
+/* Project section styling */
+.projects-section {
+    margin: 2rem 0;
+}
+
+.project {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(127, 197, 128, 0.2);
+}
+
+.project:last-child {
+    border-bottom: none;
+}
+
+.section-footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(127, 197, 128, 0.3);
+}
+
+/* Link styling */
+.page-link {
+    text-decoration: underline;
+    color: inherit
+} 

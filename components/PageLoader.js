@@ -34,21 +34,15 @@ export class PageLoader {
 		
 		// Show loader immediately on initialization
 		this.showLoader()
-		
-		console.log('PageLoader initialized with completion callback:', !!this.completionCallback)
 	}
 	
 	loadPage(pagePath) {
-		console.log('PageLoader.loadPage called with path:', pagePath)
-		
 		if (this.isLoading) {
-			console.log('PageLoader is already loading, ignoring request')
 			return Promise.resolve(false)
 		}
 		
 		// Don't reload the same page
 		if (this.currentPage === pagePath) {
-			console.log('Already on page:', pagePath, 'ignoring request')
 			// Still need to reset loading state in main.js
 			this.completeLoading()
 			return Promise.resolve(true)
@@ -76,7 +70,6 @@ export class PageLoader {
 					
 					// 1. Now remove the current page class
 					if (currentPageStub) {
-						console.log(`Removing current page class: page-${currentPageStub}`)
 						document.documentElement.classList.remove(`page-${currentPageStub}`)
 					} else {
 						// Remove all possible page classes if we don't know the current one
@@ -90,7 +83,6 @@ export class PageLoader {
 					
 					// 2. Add the new page class
 					if (newPageStub) {
-						console.log(`Adding new page class: page-${newPageStub}`)
 						document.documentElement.classList.add(`page-${newPageStub}`)
 					}
 					
@@ -142,11 +134,9 @@ export class PageLoader {
 			
 			// Check if page is cached
 			if (this.cache[pagePath]) {
-				console.log('Loading page from cache:', pagePath)
 				pageContent = this.cache[pagePath]
 			} else {
 				// Fetch the page content
-				console.log('Fetching page content:', pagePath)
 				const response = await fetch(pagePath)
 				
 				if (!response.ok) {
@@ -157,7 +147,6 @@ export class PageLoader {
 				
 				// Cache the result
 				this.cache[pagePath] = pageContent
-				console.log('Page content cached:', pagePath)
 			}
 			
 			// Create a temporary element to parse the HTML
@@ -172,8 +161,6 @@ export class PageLoader {
 			const externalScripts = allScripts.filter(script => script.hasAttribute('src'))
 			const inlineScripts = allScripts.filter(script => !script.hasAttribute('src'))
 			
-			console.log(`Found ${externalScripts.length} external scripts and ${inlineScripts.length} inline scripts`)
-			
 			// Now set the content
 			const content = tempElement.querySelector('.page-content')
 			if (content) {
@@ -182,17 +169,14 @@ export class PageLoader {
 				
 				// Set the content
 				this.contentContainer.innerHTML = content.innerHTML
-				console.log('Content updated from:', pagePath)
 				
 				// Process external scripts first (with src attribute)
 				if (externalScripts.length > 0) {
-					console.log(`Loading ${externalScripts.length} external scripts`)
 					await this.loadExternalScripts(externalScripts)
 				}
 				
 				// Then process inline scripts
 				if (inlineScripts.length > 0) {
-					console.log(`Executing ${inlineScripts.length} inline scripts`)
 					this.executeInlineScripts(inlineScripts)
 				}
 				
@@ -218,7 +202,6 @@ export class PageLoader {
 			// Update URL without reloading the page
 			const pageName = pagePath.substring(pagePath.lastIndexOf('/') + 1, pagePath.lastIndexOf('.'))
 			window.history.pushState({ page: pagePath, id: pageName }, '', `#${pageName}`)
-			console.log('URL updated to:', window.location.href)
 			
 			return true
 		} catch (error) {
@@ -243,7 +226,6 @@ export class PageLoader {
 			
 			// Skip if already loaded
 			if (document.querySelector(`script[src="${src}"]`)) {
-				console.log(`Script already loaded: ${src}`)
 				continue
 			}
 			

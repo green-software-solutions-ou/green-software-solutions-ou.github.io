@@ -29,15 +29,10 @@ const menuItems = [
 	}
 ]
 
-// Add debug logging
-console.log('Main.js executing...')
-
 // Make isPageLoading accessible globally
 window.isPageLoading = isPageLoading
 
 document.addEventListener("DOMContentLoaded", function() {
-	console.log('DOM loaded, setting up page functionality')
-	
 	try {
 		// Hide the UI until first load (only on initial page load)
 		hideUI()
@@ -49,12 +44,10 @@ document.addEventListener("DOMContentLoaded", function() {
 		
 		// Initialize page loader
 		const pageContent = document.getElementById('page-content')
-		console.log('Page content element:', pageContent)
 		pageLoader = new PageLoader(pageContent, function() {
 			// Callback for when loading completes
 			isPageLoading = false
 			window.isPageLoading = false
-			console.log('Page loading complete, isPageLoading reset to false')
 			
 			// Show UI after first load
 			if (!firstLoadComplete) {
@@ -65,7 +58,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		
 		// Store initial content
 		initialContent = pageContent.innerHTML
-		console.log('Initial content stored, length:', initialContent.length)
 		
 		// Initialize menu
 		initMenu()
@@ -75,8 +67,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		
 		// Listen for hash changes
 		window.addEventListener('hashchange', handleHashNavigation)
-		
-		console.log('Setup complete, ready for navigation')
 	} catch (error) {
 		console.error('Error in DOM loaded handler:', error)
 	}
@@ -84,16 +74,12 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Hide the UI elements
 function hideUI() {
-	console.log('Hiding UI until first load')
-	
 	// Remove loaded class from body to hide UI elements
 	document.body.classList.remove('loaded')
 }
 
 // Show the UI elements
 function showUI() {
-	console.log('First load complete, showing UI')
-	
 	// Add loaded class to body to trigger CSS transitions
 	document.body.classList.add('loaded')
 	
@@ -106,7 +92,6 @@ function handleHashNavigation() {
 	const hash = window.location.hash
 	if (hash && hash.length > 1) {
 		const pageName = hash.substring(1) // Remove the # symbol
-		console.log('Hash navigation detected:', pageName)
 		
 		// Find the menu item
 		const menuItem = menuItems.find(item => item.id === pageName)
@@ -115,7 +100,6 @@ function handleHashNavigation() {
 		}
 	} else {
 		// No hash in URL, load the default "Inquiries" page
-		console.log('No hash navigation, loading default Inquiries page')
 		loadPage('inquiries')
 		// Update URL to reflect the page
 		window.history.pushState({ page: 'pages/inquiries.html', id: 'inquiries' }, '', '#inquiries')
@@ -123,11 +107,9 @@ function handleHashNavigation() {
 }
 
 function initMenu() {
-	console.log('Initializing menu from data structure')
 	try {
 		// Get the menu container
 		const menuContainer = document.getElementById('main-menu')
-		console.log('Menu container:', menuContainer)
 		
 		// Hide the menu for now
 		const menuContainerParent = document.getElementById('menu-container')
@@ -156,7 +138,6 @@ function initMenu() {
 			// Add click handler
 			button.addEventListener('click', function(e) {
 				e.preventDefault()
-				console.log(`${item.text} clicked`)
 				loadPage(item.id)
 				return false
 			})
@@ -164,16 +145,12 @@ function initMenu() {
 			li.appendChild(button)
 			menuContainer.appendChild(li)
 		})
-		
-		console.log('Menu initialized successfully')
 	} catch (error) {
 		console.error('Error initializing menu:', error)
 	}
 }
 
 function setActiveMenuItem(itemId) {
-	console.log(`Setting active menu item: ${itemId}`)
-	
 	// Update data structure
 	menuItems.forEach(item => {
 		item.isActive = (item.id === itemId)
@@ -192,13 +169,11 @@ function setActiveMenuItem(itemId) {
 function loadPage(pageName) {
 	// Prevent concurrent loads
 	if (isPageLoading) {
-		console.log('Page is already loading, ignoring request')
 		return
 	}
 	
 	isPageLoading = true
 	window.isPageLoading = true
-	console.log('Loading page:', pageName, 'isPageLoading set to true')
 	
 	try {
 		// Set active menu item
@@ -210,9 +185,7 @@ function loadPage(pageName) {
 		// Use the returned promise
 		pageLoader.loadPage(url)
 			.then(success => {
-				if (success) {
-					console.log(`Successfully loaded page: ${pageName}`)
-				} else {
+				if (!success) {
 					console.error(`Failed to load page: ${pageName}`)
 					showError(`Failed to load: ${pageName}`)
 					// Reset loading state in case of error
@@ -247,23 +220,24 @@ function loadPage(pageName) {
 		isPageLoading = false
 		window.isPageLoading = false
 		
-		// Ensure UI is shown even on error
+		// Ensure UI is shown even on fatal errors
 		if (!firstLoadComplete) {
 			showUI()
 			firstLoadComplete = true
 		}
-		
-		return false
 	}
 }
 
-// Show error message
+// Display error message in the page content area
 function showError(message) {
-	console.error(message)
-	document.getElementById('page-content').innerHTML = `
-		<div style="padding: 2rem; background: white; border-radius: 8px; text-align: center; margin-top: 2rem;">
-			<h2 style="color: #e74c3c; margin-bottom: 1rem;">Error</h2>
+	if (!pageLoader || !pageLoader.contentContainer) return
+	
+	const contentContainer = pageLoader.contentContainer
+	contentContainer.innerHTML = `
+		<div class="error-message">
+			<h2>Error</h2>
 			<p>${message}</p>
 		</div>
 	`
+	contentContainer.style.opacity = '1'
 }

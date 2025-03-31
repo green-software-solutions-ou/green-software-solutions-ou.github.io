@@ -7,13 +7,10 @@ export class Menu {
 	}
 
 	init() {
-		console.log('Menu init - Creating element')
 		this.element = document.createElement('nav')
 		this.element.className = 'side-menu'
 		this.render()
 		
-		console.log('Menu init - Appending to container', this.container)
-		console.log('Menu items:', this.items)
 		if (this.container) {
 			this.container.appendChild(this.element)
 		} else {
@@ -22,12 +19,10 @@ export class Menu {
 	}
 
 	render() {
-		console.log('Menu render - Creating menu list')
 		this.element.innerHTML = ''
 		const menuList = document.createElement('ul')
 		
 		this.items.forEach((item, index) => {
-			console.log(`Rendering menu item ${index}:`, item.id)
 			if (item.element) {
 				menuList.appendChild(item.element)
 			} else {
@@ -36,7 +31,6 @@ export class Menu {
 		})
 		
 		this.element.appendChild(menuList)
-		console.log('Menu rendered', this.element)
 	}
 
 	addItem(item) {

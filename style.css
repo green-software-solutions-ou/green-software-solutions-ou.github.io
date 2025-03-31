@@ -12,6 +12,7 @@ html {
     min-height: 100vh;
     position: relative;
     overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 /* Gradient background base - always present */
@@ -151,7 +152,7 @@ li.active .menu-button {
     margin-bottom: 20px;
     margin-top: 28px;
     position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
 #logo-bg {
@@ -189,6 +190,7 @@ li.active .menu-button {
     box-shadow: 0px 20px 30px 0px rgba(0, 0, 0, 0.24);
     max-width: 800px;
     backdrop-filter: blur(30px);
+    transition: all 0.5s ease-in-out;
 }
 
 /* .wrap{
@@ -222,5 +224,106 @@ li.active .menu-button {
 @media only screen and (max-width: 749px) {
     #form-wrap, #form {
         width: 100% !important;
+    }
+}
+
+/* Mobile-friendly adjustments for the entire site */
+@media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+    }
+    
+    body {
+        position: relative;
+        width: 100%;
+    }
+    
+    /* Remove content td padding on mobile */
+    #content td {
+        padding: 0;
+        padding-bottom: 70px; /* Keep some space for footer */
+    }
+    
+    /* Ensure wraps are properly sized */
+    .wrap, #form-wrap {
+        max-width: 100%;
+        width: 100% !important;
+        box-sizing: border-box;
+        margin: 10px 0;
+        border-radius: 11px;  /* Updated to maintain rounded borders */
+    }
+    
+    /* Adjust padding for better mobile spacing */
+    .wrap {
+        padding: 35px;  /* Increased padding */
+    }
+    
+    /* Increase padding for the form wrap specifically */
+    #form-wrap {
+        padding: 35px 25px;  /* 35px vertical, 25px horizontal */
+    }
+    
+    /* Make logo smaller on mobile */
+    #logo {
+        width: 150px;
+        height: 150px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    
+    /* Ensure proper content scaling */
+    img, video, canvas, svg {
+        max-width: 100%;
+        height: auto;
+    }
+    
+    /* Adjust typography for readability */
+    h1, h2, h3, h4, h5, h6 {
+        word-wrap: break-word;
+    }
+    
+    /* Improve button touch targets */
+    button, 
+    [type="button"], 
+    [type="reset"], 
+    [type="submit"] {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    /* Handle long words in content */
+    p, li, h1, h2, h3, h4, h5, h6 {
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+        -ms-word-break: break-all;
+        word-break: break-word;
+        -ms-hyphens: auto;
+        -moz-hyphens: auto;
+        -webkit-hyphens: auto;
+        hyphens: auto;
+    }
+    
+    /* Fix footer positioning */
+    #footer {
+        padding: 15px;
+        padding-top: 25px;
+    }
+    
+    /* Ensure page content has proper padding on mobile */
+    #page-content {
+        padding: 15px;
+    }
+}
+
+/* Extra small devices adjustment */
+@media (max-width: 480px) {
+    .page-inquiries #form-wrap {
+        padding: 20px 15px;
+        margin: 0;
+        width: 100%;
+    }
+    
+    #form-submit {
+        padding: 14px 16px;
     }
 }

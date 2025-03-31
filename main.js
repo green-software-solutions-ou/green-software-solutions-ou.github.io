@@ -13,13 +13,13 @@ const menuItems = [
 		id: 'free-software',
 		text: 'Free Software',
 		href: 'pages/free-software.html',
-		isActive: true
+		isActive: false
 	},
     {
 		id: 'inquiries',
 		text: 'Inquiries',
 		href: 'pages/inquiries.html',
-		isActive: false
+		isActive: true
 	},
 	{
 		id: 'about',
@@ -114,11 +114,11 @@ function handleHashNavigation() {
 			loadPage(pageName)
 		}
 	} else {
-		// No hash in URL, load the default "Free Software" page
-		console.log('No hash navigation, loading default Free Software page')
-		loadPage('free-software')
+		// No hash in URL, load the default "Inquiries" page
+		console.log('No hash navigation, loading default Inquiries page')
+		loadPage('inquiries')
 		// Update URL to reflect the page
-		window.history.pushState({ page: 'pages/free-software.html', id: 'free-software' }, '', '#free-software')
+		window.history.pushState({ page: 'pages/inquiries.html', id: 'inquiries' }, '', '#inquiries')
 	}
 }
 
@@ -128,6 +128,12 @@ function initMenu() {
 		// Get the menu container
 		const menuContainer = document.getElementById('main-menu')
 		console.log('Menu container:', menuContainer)
+		
+		// Hide the menu for now
+		const menuContainerParent = document.getElementById('menu-container')
+		if (menuContainerParent) {
+			menuContainerParent.style.display = 'none'
+		}
 		
 		// Clear existing items
 		menuContainer.innerHTML = ''

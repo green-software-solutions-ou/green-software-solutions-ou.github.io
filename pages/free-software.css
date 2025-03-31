@@ -3,8 +3,6 @@
 
 /* Page-specific colors and overrides can go here */ 
 
-
-
 .page-free-software .wrap{
     transition: all 1s ease-in-out;
     background: transparent;
@@ -12,7 +10,6 @@
     color: white;
     backdrop-filter: blur(100px);
 }
-
 
 .page-free-software .side-menu{
     background-color: rgba(0,0,0,.4);

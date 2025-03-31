@@ -165,10 +165,10 @@
 /* Page Loader */
 .page-loader {
 	position: fixed;
-	top: 820px;
+	top: 0px;
 	left: 0;
 	width: 100%;
-	height: 50px;
+	height: 100%;
 	display: flex;
 	justify-content: center;
 	align-items: center;

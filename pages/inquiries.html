@@ -1,12 +1,94 @@
 <link rel="stylesheet" href="./../pages/inquiries.css">
+<script src="./../pages/inquiries-form.js"></script>
 
 <div class="page-content">
-	<div id="form-wrap">
-		<iframe id="form" src="https://docs.google.com/forms/d/e/1FAIpQLSdDka7XURO2kKCWUGF1ulZqWoKYQG1fCk6qTZZ_teFsiW7pRg/viewform?embedded=true&hl=en" width="750" height="800px" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+	<div id="form-wrap" class="wrap">
+		<div class="inquiry-form-container">
+			<h2 class="page-title">Green Software Solutions OÜ Inquiries</h2>
+			<p class="body-text">Please fill out the form below and we'll get back to you as soon as possible.</p>
+			<br />
+            <br />
+			<form id="contact-form" action="javascript:void(0);" onsubmit="if(window.submitForm){return window.submitForm();}return false;">
+				<div class="form-row">
+					<div class="form-group required">
+						<label for="form-name">Name</label>
+						<input type="text" id="form-name" name="name" required placeholder="Your full name">
+					</div>
+					
+					<div class="form-group required">
+						<label for="form-email">Email</label>
+						<input type="email" id="form-email" name="email" required placeholder="your@email.com">
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="form-group required">
+						<label for="form-company">Company</label>
+						<input type="text" id="form-company" name="company" required placeholder="Your company name">
+					</div>
+					
+					<div class="form-group">
+						<label for="form-phone">Phone (optional)</label>
+						<input type="tel" id="form-phone" name="phone" placeholder="+1 (555) 123-4567">
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="form-group full-width required">
+						<label for="form-message">Message</label>
+						<textarea id="form-message" name="message" rows="5" required placeholder="Your message here..."></textarea>
+					</div>
+				</div>
+				
+				<div id="form-status" class="form-status"></div>
+				
+				<div class="form-actions">
+					<button type="submit" id="form-submit" onclick="if(window.submitForm){return window.submitForm();}return false;">Submit</button>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 
 <script>
-	// Page-specific JavaScript can go here
-	console.log('Inquiries page loaded')
+console.log('Inquiries page inline script loaded');
+
+// Make sure form is initialized even if external script fails
+(function() {
+	console.log('Inline init script running');
+	
+	// Try to initialize from HTML if external script failed
+	setTimeout(function() {
+		var form = document.getElementById('contact-form');
+		var submitBtn = document.getElementById('form-submit');
+		
+		if (form && submitBtn) {
+			console.log('Form found in inline script');
+			
+			if (window.initContactForm) {
+				console.log('Calling external initContactForm from inline');
+				window.initContactForm();
+			} else {
+				console.log('External form script not loaded, attaching inline handler');
+				
+				// Define a simple submit function if external one isn't available
+				if (!window.submitForm) {
+					window.submitForm = function() {
+						console.log('Inline submitForm called');
+						var statusEl = document.getElementById('form-status');
+						if (statusEl) {
+							statusEl.textContent = 'Form submission is not available at this time.';
+							statusEl.className = 'form-status error';
+						} else {
+							alert('Form submission is not available at this time.');
+						}
+						return false;
+					};
+				}
+			}
+		} else {
+			console.error('Form not found in inline script');
+		}
+	}, 1000);
+})();
 </script> 

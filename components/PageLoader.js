@@ -167,11 +167,12 @@ export class PageLoader {
 			// Process and load CSS links
 			this.processStyles(tempElement, pagePath)
 			
-			// Update content (without the link tags that were processed separately)
-			// Remove link tags as they've been processed
-			Array.from(tempElement.querySelectorAll('link')).forEach(link => {
-				link.parentNode.removeChild(link)
-			})
+			// Extract all scripts before setting content
+			const allScripts = Array.from(tempElement.querySelectorAll('script'))
+			const externalScripts = allScripts.filter(script => script.hasAttribute('src'))
+			const inlineScripts = allScripts.filter(script => !script.hasAttribute('src'))
+			
+			console.log(`Found ${externalScripts.length} external scripts and ${inlineScripts.length} inline scripts`)
 			
 			// Now set the content
 			const content = tempElement.querySelector('.page-content')
@@ -183,25 +184,16 @@ export class PageLoader {
 				this.contentContainer.innerHTML = content.innerHTML
 				console.log('Content updated from:', pagePath)
 				
-				// Execute any scripts
-				const scripts = this.contentContainer.querySelectorAll('script')
-				scripts.forEach(oldScript => {
-					const newScript = document.createElement('script')
-					
-					// Copy attributes
-					Array.from(oldScript.attributes).forEach(attr => {
-						newScript.setAttribute(attr.name, attr.value)
-					})
-					
-					// Copy content
-					newScript.textContent = oldScript.textContent
-					
-					// Replace old script with new one to execute it
-					oldScript.parentNode.replaceChild(newScript, oldScript)
-				})
+				// Process external scripts first (with src attribute)
+				if (externalScripts.length > 0) {
+					console.log(`Loading ${externalScripts.length} external scripts`)
+					await this.loadExternalScripts(externalScripts)
+				}
 				
-				if (scripts.length > 0) {
-					console.log(`Executed ${scripts.length} scripts from page:`, pagePath)
+				// Then process inline scripts
+				if (inlineScripts.length > 0) {
+					console.log(`Executing ${inlineScripts.length} inline scripts`)
+					this.executeInlineScripts(inlineScripts)
 				}
 				
 				// Make sure the loaded class is maintained during navigation
@@ -241,6 +233,101 @@ export class PageLoader {
 			this.contentContainer.style.opacity = '1'
 			return false
 		}
+	}
+	
+	// Load external scripts in sequence, waiting for each to load
+	async loadExternalScripts(scripts) {
+		for (let i = 0; i < scripts.length; i++) {
+			const oldScript = scripts[i]
+			const src = oldScript.getAttribute('src')
+			
+			// Skip if already loaded
+			if (document.querySelector(`script[src="${src}"]`)) {
+				console.log(`Script already loaded: ${src}`)
+				continue
+			}
+			
+			console.log(`Loading external script (${i+1}/${scripts.length}): ${src}`)
+			
+			// Create a promise to track when script loads
+			await new Promise((resolve, reject) => {
+				const newScript = document.createElement('script')
+				
+				// Copy all attributes
+				Array.from(oldScript.attributes).forEach(attr => {
+					if (attr.name !== 'src') { // We'll set src last
+						newScript.setAttribute(attr.name, attr.value)
+					}
+				})
+				
+				// Set up event handlers
+				newScript.onload = () => {
+					console.log(`Script loaded successfully: ${src}`)
+					resolve()
+				}
+				
+				newScript.onerror = (error) => {
+					console.error(`Error loading script ${src}:`, error)
+					// Resolve anyway to continue with other scripts
+					resolve()
+				}
+				
+				// Set src last to start loading
+				newScript.src = src
+				
+				// Add to document
+				document.head.appendChild(newScript)
+			})
+			
+			// Extra debugging - check if global functions are available after script load
+			if (window.initContactForm) {
+				console.log('initContactForm is now available in global scope')
+			} else {
+				console.log('initContactForm is NOT available in global scope')
+			}
+		}
+	}
+	
+	// Execute inline scripts in sequence
+	executeInlineScripts(scripts) {
+		scripts.forEach((oldScript, index) => {
+			try {
+				console.log(`Executing inline script ${index + 1}/${scripts.length}`)
+				
+				// Create new script element
+				const newScript = document.createElement('script')
+				
+				// Copy attributes
+				Array.from(oldScript.attributes).forEach(attr => {
+					newScript.setAttribute(attr.name, attr.value)
+				})
+				
+				// Set content 
+				newScript.textContent = oldScript.textContent
+				
+				// Execute by appending to head
+				document.head.appendChild(newScript)
+				
+				console.log(`Inline script ${index + 1} executed successfully`)
+			} catch (error) {
+				console.error(`Error executing inline script ${index + 1}:`, error)
+			}
+		})
+		
+		// Extra debugging - check DOM and form after scripts execution
+		setTimeout(() => {
+			const form = document.getElementById('contact-form')
+			const submitBtn = document.getElementById('form-submit')
+			console.log('After script execution - Form exists:', !!form, 'Submit button exists:', !!submitBtn)
+			
+			if (form && submitBtn) {
+				console.log('Form found after script execution, initializing manually')
+				if (window.initContactForm) {
+					console.log('Calling initContactForm manually after delay')
+					window.initContactForm()
+				}
+			}
+		}, 500)
 	}
 	
 	unloadPageStylesheets(pagePath) {

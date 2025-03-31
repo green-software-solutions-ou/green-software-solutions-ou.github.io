@@ -3,35 +3,18 @@
 
 <div class="page-content">
 	<div class="wrap">
-		<h1 class="page-title">About Green Software Solutions</h1>
+		<h1 class="page-title">About Green Software Solutions OÜ</h1>
 		
-		<h2 class="section-title">Our Mission</h2>
 		<p class="body-text">
-			Green Software Solutions OÜ is committed to developing <strong>sustainable</strong> and 
-			<strong>environmentally friendly</strong> software solutions. Our approach combines innovative 
-			technology with eco-conscious practices, ensuring that our digital products have 
-			minimal environmental impact.
+			Green Software Solutions OÜ is an Estonia-registered software development company specializing in frontend UI/UX solutions that power modern business applications. By crafting intuitive and efficient user interfaces, the company ensures seamless interactions between users and complex systems.
 		</p>
 		
-		<h2 class="section-title">Our Focus</h2>
 		<p class="body-text">
-			Founded in Estonia, we focus on creating efficient, optimized software that reduces 
-			carbon footprint and energy consumption while maintaining high performance and user experience.
+			Expertise includes designing and developing AI-powered dashboards, Microsoft Teams chatbots, and tailored sales tools with competitive analysis, messaging, goal tracking, and performance insights. Custom management panels and microfrontends further enhance business operations, integrating smoothly into existing infrastructures.
 		</p>
 		
-		<blockquote class="quote">
-			"We believe that great software should not only serve its purpose but also respect our planet."
-		</blockquote>
-		
-		<h2 class="section-title">Our Team</h2>
 		<p class="body-text">
-			Our team consists of experienced developers, designers, and sustainability experts 
-			who are passionate about making a positive impact on the world through technology.
-		</p>
-		
-		<h3 class="subsection-title">Contact Us</h3>
-		<p class="body-text">
-			Interested in sustainable software solutions? Visit our <a href="#inquiries" class="page-link">inquiries</a> page to get in touch.
+			Beyond enterprise software, Green Software Solutions OÜ also creates sleek, user-friendly websites for artists, schools, and other organizations. A deep understanding of usability, aesthetics, and performance drives each project, delivering digital experiences that are both functional and engaging.
 		</p>
 	</div>
 </div>
@@ -41,7 +24,7 @@
 	console.log('About page loaded')
 	
 	// Add event listener to the inquiries link
-	document.querySelector('a[href="#inquiries"]').addEventListener('click', function(e) {
+	document.querySelector('a[href="#inquiries"]')?.addEventListener('click', function(e) {
 		e.preventDefault()
 		if (window.loadPage) {
 			window.loadPage('inquiries')
